@@ -124,7 +124,7 @@ O Java necessita do driver como um tradutor para o MySQL. Adicione-o ao projeto 
 
 Antes de abrir a aplicação completa, execute a classe `TestaConexao.java` (botão direito → **Run As** → **Java Application**).
 
-**Resultado esperado:** O console exibirá uma mensagem de sucesso confirmando que o Java conseguiu ler o arquivo de propriedades e abrir um canal de comunicação com o MySQL.
+**Resultado esperado:** O console exibirá uma mensagem de sucesso confirmando que o Java conseguiu ler o arquivo de propriedades e abrir um canal de comunicação com o MySQL
 
 #### Execução da Aplicação (`MainApp.java`)
 
