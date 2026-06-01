@@ -68,10 +68,10 @@ public class MainApp {
                 executarLogin();
                 break;
             case 3:
-                System.exit(0); // Encerra a JVM imediatamente
+            	System.out.println("Sistema encerrado. Até logo!");
+                scanner.close();
+                System.exit(0);
                 break;
-            default:
-                System.out.println("Opção inválida! Tente novamente.");
         }
     }
 
@@ -88,7 +88,8 @@ public class MainApp {
         System.out.println("4. Listar Minhas Tarefas");
         System.out.println("5. Editar / Atualizar Tarefa");
         System.out.println("6. Eliminar uma Tarefa");
-        System.out.println("7. Fazer Logout (Trocar de conta)");
+        System.out.println("7. Marcar Tarefa como Concluída");        
+        System.out.println("8. Fazer Logout (Trocar de conta)");
         System.out.print("Escolha uma opção: ");
 
         int opcao = lerOpcaoInt();
@@ -113,6 +114,9 @@ public class MainApp {
                 eliminarTarefa();
                 break;
             case 7:
+                marcarTarefaConcluida();
+                break;
+            case 8:
                 System.out.println("Efetuando logout...");
                 usuarioLogado = null; // Limpa a sessão do utilizador
                 break;
@@ -155,6 +159,7 @@ public class MainApp {
 
         if (usuarioLogado != null) {
             System.out.println("Autenticação realizada com sucesso!");
+            verificarLembretes();
         } else {
             System.out.println("E-mail ou senha incorretos! Tente novamente.");
         }
@@ -177,7 +182,11 @@ public class MainApp {
 
     private static void listarCategorias() {
         System.out.println("\n--- SUAS CATEGORIAS ---");
+        System.out.println("Buscando categorias para o usuário ID: " + usuarioLogado.getId());
+        
         List<Categoria> lista = categoriaDAO.listarPorUsuario(usuarioLogado.getId());
+        
+        System.out.println("Total encontrado: " + lista.size());
         
         if (lista.isEmpty()) {
             System.out.println("Nenhuma categoria cadastrada.");
@@ -371,6 +380,47 @@ public class MainApp {
         if (tarefaDAO.excluir(id)) {
             System.out.println("Tarefa removida com sucesso do sistema.");
         }
+    }
+    
+    private static void verificarLembretes() {
+        List<Tarefa> tarefas = tarefaDAO.listarPorUsuario(usuarioLogado.getId());
+        LocalDateTime agora = LocalDateTime.now();
+        boolean temAviso = false;
+
+        for (Tarefa t : tarefas) {
+            if (t.getStatus() == StatusTarefa.PENDENTE && t.getPrazo().isBefore(agora)) {
+                if (!temAviso) {
+                    System.out.println("\n⚠️  ===== LEMBRETES =====");
+                    temAviso = true;
+                }
+                System.out.println("🔴 ATRASADA: " + t.getTitulo()
+                    + " | Prazo era: " + t.getPrazo().format(formatter));
+                t.setStatus(StatusTarefa.EM_ATRASO);
+                tarefaDAO.atualizar(t);
+            }
+        }
+        if (temAviso) {
+            System.out.println("========================\n");
+        }
+    }
+    
+    private static void marcarTarefaConcluida() {
+        System.out.println("\n--- MARCAR COMO CONCLUÍDA ---");
+        listarTarefas();
+        System.out.print("Digite o ID da tarefa concluída: ");
+        int id = lerOpcaoInt();
+
+        List<Tarefa> lista = tarefaDAO.listarPorUsuario(usuarioLogado.getId());
+        for (Tarefa t : lista) {
+            if (t.getId() == id) {
+                t.setStatus(StatusTarefa.CONCLUIDO);
+                if (tarefaDAO.atualizar(t)) {
+                    System.out.println("✅ Tarefa marcada como concluída!");
+                }
+                return;
+            }
+        }
+        System.out.println("❌ Tarefa não encontrada.");
     }
 
     // ==========================================
