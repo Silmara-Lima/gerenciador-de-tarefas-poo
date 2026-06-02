@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Classe principal que representa uma Tarefa no sistema.
  * Demonstra relações complexas de POO através da associação direta 
- * com as classes Usuario e Categoria, além do uso do Enum de status.
+ * com as classes Usuario e Categoria, além do uso do Enum de status
  */
 public class Tarefa {
 
