@@ -2,7 +2,9 @@
 **Disciplina:** Programação Orientada a Objetos (POO) - Terceiro Período (P3)  
 **Instituição:** Centro Universitário de João Pessoa (UNIPÊ)  
 **Professor:** Tiago Emilio  
+
 **Integrantes** 
+
 Flavia Tavares do Nascimento - 42031141 - nflaviatavares@gmail.com
 
 Luís Gustavo Rocha Gomes De Andrade - 42917107 - luis.lgdev@gmail.com
