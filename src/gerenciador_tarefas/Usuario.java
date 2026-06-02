@@ -18,7 +18,7 @@ public class Usuario {
 
     /**
      * Construtor padrão da classe.
-     * Necessário para inicializações limpas e compatibilidade com padrões de projeto.
+     * Necessário para inicializações limpas e compatibilidade com padrões de projeto
      */
     public Usuario() {
     }
