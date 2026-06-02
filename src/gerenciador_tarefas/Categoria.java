@@ -2,7 +2,7 @@ package gerenciador_tarefas;
 
 /**
  * Classe que representa a Categoria das tarefas no sistema.
- * Demonstra a relação de associação em POO, onde uma categoria pertence a um Usuário.
+ * Demonstra a relação de associação em POO, onde uma categoria pertence a um Usuário
  */
 public class Categoria {
 
