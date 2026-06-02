@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Classe Data Access Object (DAO) para a entidade Usuario.
  * Encapsula de forma exclusiva todas as operações de manipulação de dados (CRUD)
- * e regras de persistência da tabela 'usuarios' no MySQL.
+ * e regras de persistência da tabela 'usuarios' no MySQL
  */
 public class UsuarioDAO {
 
